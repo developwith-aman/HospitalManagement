@@ -19,11 +19,14 @@ public class Patient {
     private int age;
     @Column(name = "email")
     private String email;
-
     @Column(name = "bloodGroup")
     // This column is created by hibernate, it is not already been created inside the database
     @Enumerated(EnumType.STRING) // Using the Enums here with the type STRING, mostly the ORDINAL is used in industries
     private BloodGroups bloodGroup;
+
+    @OneToOne
+    @JoinColumn(name = "insuranceID")
+    private Insurance insurance;
 
     public Long getPatientID() {
         return patientID;

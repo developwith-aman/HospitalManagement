@@ -1,0 +1,77 @@
+package com.springboot.project.entity;
+
+import com.springboot.project.entity.bloodType.BloodGroups;
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "patient")
+public class Patient {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "patientID")
+    private Long patientID;
+    @Column(name = "patientName")
+    private String patientName;
+    @Column(name = "gender")
+    private String gender;
+    @Column(name = "patientAge")
+    private int age;
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "bloodGroup")
+    // This column is created by hibernate, it is not already been created inside the database
+    @Enumerated(EnumType.STRING) // Using the Enums here with the type STRING, mostly the ORDINAL is used in industries
+    private BloodGroups bloodGroup;
+
+    public Long getPatientID() {
+        return patientID;
+    }
+
+    public void setPatientID(Long patientID) {
+        this.patientID = patientID;
+    }
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public BloodGroups getBloodGroup() {
+        return bloodGroup;
+    }
+
+    public void setBloodGroup(BloodGroups bloodGroup) {
+        this.bloodGroup = bloodGroup;
+    }
+
+    // We are not writing the Getters and Setters here, since we are going to use the Lombok
+}

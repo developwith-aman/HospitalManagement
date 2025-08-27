@@ -1,5 +1,6 @@
 package com.springboot.project.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,6 +38,6 @@ public class Insurance {
     private LocalDate expiryDate;
 
     @OneToOne(mappedBy = "insurance")  // inverse side
+    @JsonIgnore
     private Patient patient;
 }
-

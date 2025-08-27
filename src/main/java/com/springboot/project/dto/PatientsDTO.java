@@ -11,6 +11,7 @@ public class PatientsDTO {
     private int age;
     private String email;
     private BloodGroups bloodGroup;
+    private Boolean hasInsurance = false;
 
     public Long getPatientID() {
         return patientID;
@@ -60,17 +61,25 @@ public class PatientsDTO {
         this.bloodGroup = bloodGroup;
     }
 
+    public Boolean getHasInsurance() {
+        return hasInsurance;
+    }
+
+    public void setHasInsurance(Boolean hasInsurance) {
+        this.hasInsurance = hasInsurance;
+    }
+
     public PatientsDTO() {
     }
 
-    public PatientsDTO(Long patientID, String patientName, String gender, int age, String email, BloodGroups bloodGroup) {
+    public PatientsDTO(Long patientID, String patientName, String gender, int age, String email, BloodGroups bloodGroup, Boolean hasInsurance) {
         this.patientID = patientID;
         this.patientName = patientName;
         this.gender = gender;
         this.age = age;
         this.email = email;
         this.bloodGroup = bloodGroup;
-
+        this.hasInsurance = hasInsurance;
     }
 }
 

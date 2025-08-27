@@ -25,11 +25,9 @@ public class Patient {
     // This column is created by hibernate, it is not already been created inside the database
     @Enumerated(EnumType.STRING) // Using the Enums here with the type STRING, mostly the ORDINAL is used in industries
     private BloodGroups bloodGroup;
-
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "insuranceID")  // Owning side
     private Insurance insurance;
-
 
     @OneToMany(mappedBy = "patient")
     private List<Appointment> appointments;   // Since a patient can have multiple appointments

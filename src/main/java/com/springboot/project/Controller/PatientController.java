@@ -1,11 +1,10 @@
 package com.springboot.project.Controller;
 
-import com.springboot.project.dto.AddNewPatient;
-import com.springboot.project.dto.BloodGroupCount;
-import com.springboot.project.dto.PatientsDTO;
-import com.springboot.project.dto.UpdateEmail;
+import com.springboot.project.dto.*;
+import com.springboot.project.entity.Insurance;
 import com.springboot.project.entity.Patient;
 import com.springboot.project.entity.bloodType.BloodGroups;
+import com.springboot.project.service.InsuranceService;
 import com.springboot.project.service.PatientService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,9 +19,11 @@ import java.util.List;
 public class PatientController {
 
     private final PatientService patientService;
+    private final InsuranceService insuranceService;
 
-    public PatientController(PatientService patientService) {
+    public PatientController(PatientService patientService, InsuranceService insuranceService) {
         this.patientService = patientService;
+        this.insuranceService = insuranceService;
     }
 
     @GetMapping(value = "/all/patients")
@@ -62,7 +63,7 @@ public class PatientController {
     }
 
 
-    // This ↓ is the manual way of doing this...
+    // This ↓ is the manual way of performing paging...
 //    @GetMapping(value = "/fetch-all-paged-patients")
 //    public Page<Patient> fetchPagedPatients(
 //            @RequestParam(defaultValue = "0") int page,
@@ -82,5 +83,15 @@ public class PatientController {
     @PostMapping(value = "/newpatient")
     public PatientsDTO addPatient(@RequestBody AddNewPatient addNewPatient) {
         return patientService.addNewPatient(addNewPatient);
+    }
+
+    @PostMapping(value = "/add/insured-patient")
+    public PatientsDTO addPatientWithInsurance(@RequestBody AddInsuredPatient addInsuredPatient) {
+        return patientService.addInsuredPatient(addInsuredPatient.getPatient(), addInsuredPatient.getInsurance());
+    }
+
+    @PostMapping(value = "/add-insurance/{patientID}")
+    public Patient addInsurance(@RequestBody Insurance insurance, @PathVariable Long patientID){
+        return insuranceService.provideInsuranceToPatient(insurance, patientID);
     }
 }

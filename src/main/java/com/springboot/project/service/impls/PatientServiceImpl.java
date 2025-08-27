@@ -3,6 +3,7 @@ package com.springboot.project.service.impls;
 import com.springboot.project.dto.AddNewPatient;
 import com.springboot.project.dto.BloodGroupCount;
 import com.springboot.project.dto.PatientsDTO;
+import com.springboot.project.entity.Insurance;
 import com.springboot.project.entity.Patient;
 import com.springboot.project.entity.bloodType.BloodGroups;
 import com.springboot.project.repository.PatientRepository;
@@ -100,5 +101,28 @@ public class PatientServiceImpl implements PatientService {
 
         Patient newPatientSaved = patientRepository.save(newPatient);
         return modelMapper.map(newPatientSaved, PatientsDTO.class);
+    }
+
+    @Override
+    public PatientsDTO addInsuredPatient(AddNewPatient addNewPatient, Insurance insurance) {
+        Patient newPatient = new Patient();
+        newPatient.setPatientName(addNewPatient.getPatientName());
+        newPatient.setGender(addNewPatient.getGender());
+        newPatient.setAge(addNewPatient.getAge());
+        if (addNewPatient.getEmail() == null || addNewPatient.getEmail().isEmpty()) {
+            newPatient.setEmail(null);
+        } else newPatient.setEmail(addNewPatient.getEmail());
+        newPatient.setBloodGroup(addNewPatient.getBloodGroup());
+
+        if (insurance != null) {
+            insurance.setPatient(newPatient);
+            newPatient.setInsurance(insurance);
+        }
+        Patient newSavedPatient = patientRepository.save(newPatient);
+        PatientsDTO patientsDTO = modelMapper.map(newSavedPatient, PatientsDTO.class);
+        patientsDTO.setHasInsurance(newSavedPatient.getInsurance() != null);
+        return patientsDTO;
+
+
     }
 }

@@ -9,7 +9,6 @@ import com.springboot.project.repository.PatientRepository;
 import com.springboot.project.service.PatientService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 

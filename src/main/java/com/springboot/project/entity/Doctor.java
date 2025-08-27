@@ -20,14 +20,20 @@ public class Doctor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "doctorID")
     private int ID;
+
     @Column(name = "doctorName", nullable = false)
     private String doctorName;
+
     @Column(name = "specialization", nullable = false)
     private String specialization;
-    @Column(name = "doctorEmailId")
+
+    @Column(name = "doctorEmailId", unique = true, length = 150)
     private String email;
 
     @OneToMany(mappedBy = "doctor")
     private List<Appointment> appointments;
+
+    @ManyToMany(mappedBy = "doctors")
+    private List<Department> departments;
 
 }

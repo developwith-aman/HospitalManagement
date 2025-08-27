@@ -3,6 +3,8 @@ package com.springboot.project.entity;
 import com.springboot.project.entity.bloodType.BloodGroups;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "patient")
 public class Patient {
@@ -25,8 +27,12 @@ public class Patient {
     private BloodGroups bloodGroup;
 
     @OneToOne
-    @JoinColumn(name = "insuranceID")
+    @JoinColumn(name = "insuranceID")  // Owning side
     private Insurance insurance;
+
+
+    @OneToMany(mappedBy = "patient")
+    private List<Appointment> appointments;   // Since a patient can have multiple appointments
 
     public Long getPatientID() {
         return patientID;
@@ -76,5 +82,20 @@ public class Patient {
         this.bloodGroup = bloodGroup;
     }
 
+    public Insurance getInsurance() {
+        return insurance;
+    }
+
+    public void setInsurance(Insurance insurance) {
+        this.insurance = insurance;
+    }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
+    }
     // We are not writing the Getters and Setters here, since we are going to use the Lombok
 }

@@ -103,6 +103,8 @@ public class PatientServiceImpl implements PatientService {
         return modelMapper.map(newPatientSaved, PatientsDTO.class);
     }
 
+
+    // this takes patients and insurance too, but if the insurance is not provided, it will only save the patient
     @Override
     public PatientsDTO addInsuredPatient(AddNewPatient addNewPatient, Insurance insurance) {
         Patient newPatient = new Patient();
@@ -114,7 +116,7 @@ public class PatientServiceImpl implements PatientService {
         } else newPatient.setEmail(addNewPatient.getEmail());
         newPatient.setBloodGroup(addNewPatient.getBloodGroup());
 
-        if (insurance != null) {
+        if (insurance != null) {   // it decides whether the insurance and patient will be linked or not...
             insurance.setPatient(newPatient);
             newPatient.setInsurance(insurance);
         }
@@ -122,7 +124,5 @@ public class PatientServiceImpl implements PatientService {
         PatientsDTO patientsDTO = modelMapper.map(newSavedPatient, PatientsDTO.class);
         patientsDTO.setHasInsurance(newSavedPatient.getInsurance() != null);
         return patientsDTO;
-
-
     }
 }

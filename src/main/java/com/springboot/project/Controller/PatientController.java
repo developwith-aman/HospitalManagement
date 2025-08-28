@@ -1,9 +1,13 @@
 package com.springboot.project.Controller;
 
 import com.springboot.project.dto.*;
+import com.springboot.project.entity.Appointment;
+import com.springboot.project.entity.Doctor;
 import com.springboot.project.entity.Insurance;
 import com.springboot.project.entity.Patient;
 import com.springboot.project.entity.bloodType.BloodGroups;
+import com.springboot.project.service.AppointmentService;
+import com.springboot.project.service.DoctorService;
 import com.springboot.project.service.InsuranceService;
 import com.springboot.project.service.PatientService;
 import org.springframework.data.domain.Page;
@@ -20,46 +24,67 @@ public class PatientController {
 
     private final PatientService patientService;
     private final InsuranceService insuranceService;
+    private final AppointmentService appointmentService;
+    private final DoctorService doctorService;
 
-    public PatientController(PatientService patientService, InsuranceService insuranceService) {
+    public PatientController(PatientService patientService,
+                             InsuranceService insuranceService,
+                             AppointmentService appointmentService,
+                             DoctorService doctorService)
+    {
         this.patientService = patientService;
         this.insuranceService = insuranceService;
+        this.appointmentService = appointmentService;
+        this.doctorService = doctorService;
     }
 
+
+    // Fetching all the patients
     @GetMapping(value = "/all/patients")
     public List<PatientsDTO> getAllPatients() {
         return patientService.getAllPatients();
     }
 
+
+    // Fetching patient with id
     @GetMapping(value = "/patient{id}")
     public PatientsDTO getPatientById(@PathVariable Long id) {
         return patientService.getPatientById(id);
     }
 
+
+    // Fetching patient with their name
     @GetMapping(value = "/name/{patientName}")
     public PatientsDTO findByName(@PathVariable String patientName) {
         return patientService.findByName(patientName);
     }
 
+
     // Fetching all the patients with a same blood group
-    @GetMapping(value = "/bloodgroup/{group}")
+    @GetMapping(value = "/blood-group/{group}")
     public List<PatientsDTO> findByBloodGroup(@PathVariable BloodGroups group) {
         return patientService.findByBloodGroup(group);
     }
 
-    @GetMapping(value = "/groupcount")
+
+    // Simple Blood-Group count
+    @GetMapping(value = "/count/blood-group")
     public List<Object[]> countBloodGroup() {
         return patientService.countBloodGroup();
     }
 
+
+    // Blood-Group count using projection
     @GetMapping(value = "/group-count-projection")
     public List<BloodGroupCount> countBloodGroupUsingProjection() {
         return patientService.countBloodGroupByProjection();
     }
 
-    @PatchMapping(value = "/update-email/{id}")
-    public PatientsDTO updatePatientEmail(@PathVariable Long id, @RequestBody UpdateEmail updateEmail) {
-        return patientService.updatePatientEmailById(id, updateEmail.getEmail());
+
+    // To update the email of the patient
+    @PatchMapping(value = "/update-email/{patientId}")
+    public PatientsDTO updatePatientEmail(@PathVariable Long patientId, @RequestBody UpdateEmail updateEmail) {
+        return patientService.updatePatientEmailById(patientId, updateEmail.getEmail());
     }
 
 
@@ -80,18 +105,34 @@ public class PatientController {
         return patientService.getAllPagedPatients(pageable);
     }
 
-    @PostMapping(value = "/newpatient")
+
+    // Adding a new patient
+    @PostMapping(value = "/add/new-patient")
     public PatientsDTO addPatient(@RequestBody AddNewPatient addNewPatient) {
         return patientService.addNewPatient(addNewPatient);
     }
 
+
+    // Adding the patient with the insurance details
     @PostMapping(value = "/add/insured-patient")
     public PatientsDTO addPatientWithInsurance(@RequestBody AddInsuredPatient addInsuredPatient) {
         return patientService.addInsuredPatient(addInsuredPatient.getPatient(), addInsuredPatient.getInsurance());
     }
 
-    @PostMapping(value = "/add-insurance/{patientID}")
-    public Patient addInsurance(@RequestBody Insurance insurance, @PathVariable Long patientID){
+
+    // Adding the insurance details to a patient
+    @PostMapping(value = "/add-insurance-to/{patientID}")
+    public Patient addInsurance(@RequestBody Insurance insurance, @PathVariable Long patientID) {
         return insuranceService.provideInsuranceToPatient(insurance, patientID);
+    }
+
+    @PostMapping(value = "/book/appointment")
+    public Appointment bookAppointment(@RequestBody CreateNewAppointment newAppointment) {
+        return appointmentService.bookPatientAppointment(newAppointment);
+    }
+
+    @PostMapping(value = "/add/doctor")
+    public Doctor addDoctor(@RequestBody AddDoctor addDoctor){
+        return doctorService.addDoctor(addDoctor);
     }
 }

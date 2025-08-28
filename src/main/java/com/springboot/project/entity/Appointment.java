@@ -30,7 +30,7 @@ public class Appointment {
     @JoinColumn(name = "patientID", nullable = false)
     private Patient patient;
 
-    @ManyToOne
+    @ManyToOne    // Owning side
     @JoinColumn(name = "doctorID", nullable = false)
     private Doctor doctor;
 

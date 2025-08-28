@@ -1,7 +1,10 @@
 package com.springboot.project.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.springboot.project.entity.bloodType.BloodGroups;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
+import org.yaml.snakeyaml.DumperOptions;
 
 import java.util.List;
 
@@ -29,7 +32,8 @@ public class Patient {
     @JoinColumn(name = "insuranceID")  // Owning side
     private Insurance insurance;
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.REMOVE})
+    @JsonIgnore
     private List<Appointment> appointments;   // Since a patient can have multiple appointments
 
     public Long getPatientID() {

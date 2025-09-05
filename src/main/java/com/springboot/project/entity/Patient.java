@@ -1,11 +1,12 @@
 package com.springboot.project.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.project.entity.bloodType.BloodGroups;
 import jakarta.persistence.*;
-import org.hibernate.annotations.Cascade;
-import org.yaml.snakeyaml.DumperOptions;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -33,8 +34,12 @@ public class Patient {
     private Insurance insurance;
 
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.REMOVE})
-    @JsonIgnore
+    @JsonManagedReference
     private List<Appointment> appointments;   // Since a patient can have multiple appointments
+
+    @Column(name = "appointmentTime", updatable = false)
+    @CreationTimestamp
+    private LocalDateTime appointmentTime;
 
     public Long getPatientID() {
         return patientID;
@@ -99,5 +104,13 @@ public class Patient {
     public void setAppointments(List<Appointment> appointments) {
         this.appointments = appointments;
     }
+
     // We are not writing the Getters and Setters here, since we are going to use the Lombok
+    public LocalDateTime getAppointmentTime() {
+        return appointmentTime;
+    }
+
+    public void setAppointmentTime(LocalDateTime appointmentTime) {
+        this.appointmentTime = appointmentTime;
+    }
 }

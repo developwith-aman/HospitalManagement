@@ -6,5 +6,5 @@ import com.springboot.project.entity.Patient;
 public interface InsuranceService {
 
 
-    Patient provideInsuranceToPatient(Insurance insurance, Long id);
+    Patient addInsuranceOfPatient(Insurance insurance, Long id);
 }

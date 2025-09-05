@@ -19,13 +19,14 @@ public class InsuranceServiceImpl implements InsuranceService {
 
     @Override
     @Transactional
-    public Patient provideInsuranceToPatient(Insurance insurance, Long patientID){
+    public Patient addInsuranceOfPatient(Insurance insurance, Long patientID){
         Patient patient = patientRepository
                 .findById(patientID)
                 .orElseThrow(()-> new IllegalArgumentException("No Patient found with id : "+patientID));
 
         patient.setInsurance(insurance);
         insurance.setPatient(patient);
+        insuranceRepository.save(insurance);
         return patient;
     }
 }

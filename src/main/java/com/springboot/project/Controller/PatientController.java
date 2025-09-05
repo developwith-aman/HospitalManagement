@@ -10,6 +10,7 @@ import com.springboot.project.service.AppointmentService;
 import com.springboot.project.service.DoctorService;
 import com.springboot.project.service.InsuranceService;
 import com.springboot.project.service.PatientService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/patients")
+//@RequiredArgsConstructor  -- This could also be used instead of manually creating the required constructor
 public class PatientController {
 
     private final PatientService patientService;
@@ -30,8 +32,7 @@ public class PatientController {
     public PatientController(PatientService patientService,
                              InsuranceService insuranceService,
                              AppointmentService appointmentService,
-                             DoctorService doctorService)
-    {
+                             DoctorService doctorService) {
         this.patientService = patientService;
         this.insuranceService = insuranceService;
         this.appointmentService = appointmentService;
@@ -39,6 +40,7 @@ public class PatientController {
     }
 
 
+    // URL : http://localhost:8080/patients/.....
     // Fetching all the patients
     @GetMapping(value = "/all/patients")
     public List<PatientsDTO> getAllPatients() {
@@ -47,7 +49,7 @@ public class PatientController {
 
 
     // Fetching patient with id
-    @GetMapping(value = "/patient{id}")
+    @GetMapping(value = "/patient/{id}")
     public PatientsDTO getPatientById(@PathVariable Long id) {
         return patientService.getPatientById(id);
     }
@@ -82,7 +84,7 @@ public class PatientController {
 
 
     // To update the email of the patient
-    @PatchMapping(value = "/update-email/{patientId}")
+    @PatchMapping(value = "/update/email/{patientId}")
     public PatientsDTO updatePatientEmail(@PathVariable Long patientId, @RequestBody UpdateEmail updateEmail) {
         return patientService.updatePatientEmailById(patientId, updateEmail.getEmail());
     }
@@ -99,7 +101,7 @@ public class PatientController {
 
     // Spring automatically injects a Pageable object based on request parameters (page, size, sort),
     // so we don't need to manually use @RequestParam. @PageableDefault sets default values
-    @GetMapping(value = "/fetch-all-paged-patients")
+    @GetMapping(value = "/fetch/paged/patients")
     public Page<Patient> fetchPagedPatients(
             @PageableDefault(size = 2, sort = "patientID", direction = Sort.Direction.ASC) Pageable pageable) {
         return patientService.getAllPagedPatients(pageable);
@@ -107,23 +109,23 @@ public class PatientController {
 
 
     // Adding a new patient
-    @PostMapping(value = "/add/new-patient")
+    @PostMapping(value = "/add/new/patient")
     public PatientsDTO addPatient(@RequestBody AddNewPatient addNewPatient) {
         return patientService.addNewPatient(addNewPatient);
     }
 
 
     // Adding the patient with the insurance details
-    @PostMapping(value = "/add/insured-patient")
+    @PostMapping(value = "/add/insured/patient")
     public PatientsDTO addPatientWithInsurance(@RequestBody AddInsuredPatient addInsuredPatient) {
         return patientService.addInsuredPatient(addInsuredPatient.getPatient(), addInsuredPatient.getInsurance());
     }
 
 
     // Adding the insurance details to a patient
-    @PostMapping(value = "/add-insurance-to/{patientID}")
+    @PostMapping(value = "/add/patient/insurance/{patientID}")
     public Patient addInsurance(@RequestBody Insurance insurance, @PathVariable Long patientID) {
-        return insuranceService.provideInsuranceToPatient(insurance, patientID);
+        return insuranceService.addInsuranceOfPatient(insurance, patientID);
     }
 
     @PostMapping(value = "/book/appointment")
@@ -132,7 +134,14 @@ public class PatientController {
     }
 
     @PostMapping(value = "/add/doctor")
-    public Doctor addDoctor(@RequestBody AddDoctor addDoctor){
+    public Doctor addDoctor(@RequestBody AddDoctor addDoctor) {
         return doctorService.addDoctor(addDoctor);
+    }
+
+    @PatchMapping(value = "/re-assign/appointment/new-doctor")
+    public Appointment reassignAppointmentToAnotherDoctor(
+            @RequestParam int doctorID,
+            @RequestParam Long appointmentID) {
+        return appointmentService.reassignAppointment(doctorID, appointmentID);
     }
 }

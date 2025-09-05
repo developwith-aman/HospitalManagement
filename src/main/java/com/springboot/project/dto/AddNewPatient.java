@@ -2,6 +2,8 @@ package com.springboot.project.dto;
 
 import com.springboot.project.entity.bloodType.BloodGroups;
 
+import java.time.LocalDateTime;
+
 public class AddNewPatient {
 
     private String patientName;
@@ -9,6 +11,7 @@ public class AddNewPatient {
     private int age;
     private String email;
     private BloodGroups bloodGroup;
+    private LocalDateTime appointmentTime;
 
     public String getPatientName() {
         return patientName;
@@ -48,5 +51,13 @@ public class AddNewPatient {
 
     public void setBloodGroup(BloodGroups bloodGroup) {
         this.bloodGroup = bloodGroup;
+    }
+
+    public LocalDateTime getAppointmentTime() {
+        return appointmentTime;
+    }
+
+    public void setAppointmentTime(LocalDateTime appointmentTime) {
+        this.appointmentTime = appointmentTime;
     }
 }

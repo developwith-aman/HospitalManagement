@@ -25,8 +25,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Transactional
     @Override
     public Appointment bookPatientAppointment(CreateNewAppointment newAppointment) {
-        System.out.println("Doctor ID = " + newAppointment.getDoctorId());
-        System.out.println("Patient ID = " + newAppointment.getPatientId());
         Doctor doctor = doctorRepository.findById(newAppointment.getDoctorId())
                 .orElseThrow(() -> new IllegalArgumentException("No doctor found..."));
         Patient patient = patientRepository.findById(newAppointment.getPatientId())
@@ -40,4 +38,20 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         return appointmentRepository.save(appointment);
     }
+
+    @Transactional
+    @Override
+    public Appointment reassignAppointment(int doctorID, Long appointmentID) {
+        Appointment newAppointment = appointmentRepository
+                .findById(appointmentID)
+                .orElseThrow(()-> new IllegalArgumentException("No appointment found..."));
+        Doctor doctor = doctorRepository
+                .findById(doctorID)
+                .orElseThrow(()-> new IllegalArgumentException("No doctor found..."));
+
+        newAppointment.setDoctor(doctor);
+        return newAppointment;
+    }
+
+
 }

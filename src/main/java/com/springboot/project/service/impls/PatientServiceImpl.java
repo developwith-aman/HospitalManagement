@@ -98,6 +98,7 @@ public class PatientServiceImpl implements PatientService {
             newPatient.setEmail(null);
         } else newPatient.setEmail(addNewPatient.getEmail());
         newPatient.setBloodGroup(addNewPatient.getBloodGroup());
+        newPatient.setAppointmentTime(addNewPatient.getAppointmentTime());
 
         Patient newPatientSaved = patientRepository.save(newPatient);
         return modelMapper.map(newPatientSaved, PatientsDTO.class);

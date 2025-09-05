@@ -14,6 +14,4 @@ import lombok.Setter;
 public class AddInsuredPatient {
     private AddNewPatient patient;
     private Insurance insurance;
-
-
 }

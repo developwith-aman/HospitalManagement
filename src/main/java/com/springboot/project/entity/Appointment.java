@@ -1,5 +1,6 @@
 package com.springboot.project.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,10 +29,12 @@ public class Appointment {
 
     @ManyToOne  // owning side, since appointment doesn't make any sense without patient, so it ows this relationship
     @JoinColumn(name = "patientID", nullable = false)
+    @JsonBackReference
     private Patient patient;
 
     @ManyToOne    // Owning side
     @JoinColumn(name = "doctorID", nullable = false)
+    @JsonBackReference
     private Doctor doctor;
 
     // This @ManyToOne() is read as : Many 'Appointment' to 'One' Patient

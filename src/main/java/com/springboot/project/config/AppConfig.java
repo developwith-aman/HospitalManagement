@@ -1,16 +1,20 @@
 package com.springboot.project.config;
 
+import com.springboot.project.dto.PatientsDTO;
 import org.modelmapper.ModelMapper;
-import org.springframework.boot.Banner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class modelMapperConfig {
+public class AppConfig {
 
     @Bean
     public ModelMapper modelMapper(){
         return new ModelMapper();
     }
 
+    @Bean
+    public PatientsDTO patientsDTO(){
+        return new PatientsDTO();
+    }
 }

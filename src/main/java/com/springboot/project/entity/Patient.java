@@ -1,10 +1,10 @@
 package com.springboot.project.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.springboot.project.entity.bloodType.BloodGroups;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -112,5 +112,10 @@ public class Patient {
 
     public void setAppointmentTime(LocalDateTime appointmentTime) {
         this.appointmentTime = appointmentTime;
+    }
+
+    @JsonProperty("insured")
+    public boolean getHasInsurance() {
+        return this.insurance != null;
     }
 }

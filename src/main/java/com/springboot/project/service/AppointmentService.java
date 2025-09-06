@@ -5,4 +5,6 @@ import com.springboot.project.entity.Appointment;
 
 public interface AppointmentService {
     Appointment bookPatientAppointment(CreateNewAppointment newAppointment);
+
+    Appointment reassignAppointment(int doctorID, Long appointmentID);
 }

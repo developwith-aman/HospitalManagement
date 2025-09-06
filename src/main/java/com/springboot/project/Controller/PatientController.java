@@ -62,7 +62,7 @@ public class PatientController {
     }
 
 
-    // Fetching all the patients with a same blood group
+    // Fetching all the patients with a same type of blood group
     @GetMapping(value = "/blood-group/{group}")
     public List<PatientsDTO> findByBloodGroup(@PathVariable BloodGroups group) {
         return patientService.findByBloodGroup(group);

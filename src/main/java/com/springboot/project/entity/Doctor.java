@@ -1,11 +1,10 @@
 package com.springboot.project.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.List;
 
@@ -31,6 +30,7 @@ public class Doctor {
     private String email;
 
     @OneToMany(mappedBy = "doctor")
+    @JsonManagedReference
     private List<Appointment> appointments;
 
     @ManyToMany(mappedBy = "doctors")

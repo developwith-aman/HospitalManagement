@@ -42,7 +42,8 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     // The better way to use this ↑ is by using the 'Projection'
 
     // Doing this ↑ same using Projection here ↓, Projection only works with the JPQL not with the native query
-
+    /** A projection means selecting only specific fields (or a transformed view) from an entity
+     instead of fetching the whole entity. */
     // This query uses a JPQL constructor expression to map results into the DTO (BloodGroupCount here).
     // Ensure that BloodGroupCount has a matching constructor (BloodGroups bloodGroup, Long count).
     @Query("SELECT new com.springboot.project.dto.BloodGroupCount(p.bloodGroup, " +

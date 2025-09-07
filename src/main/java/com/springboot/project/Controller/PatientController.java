@@ -70,14 +70,14 @@ public class PatientController {
 
 
     // Simple Blood-Group count
-    @GetMapping(value = "/count/blood-group")
-    public List<Object[]> countBloodGroup() {
+    @GetMapping(value = "/count/blood/group")
+    public List<Object[]> countBloodGroup() {   // it will return the object array
         return patientService.countBloodGroup();
     }
 
 
     // Blood-Group count using projection
-    @GetMapping(value = "/group-count-projection")
+    @GetMapping(value = "/blood/group/count/projection")
     public List<BloodGroupCount> countBloodGroupUsingProjection() {
         return patientService.countBloodGroupByProjection();
     }

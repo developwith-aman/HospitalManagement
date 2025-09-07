@@ -41,7 +41,8 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public PatientsDTO getPatientById(Long id) {
-        Patient patientById = patientRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("No Patient found with this ID : " + id));
+        Patient patientById = patientRepository
+                .findById(id).orElseThrow(() -> new IllegalArgumentException("No Patient found with this ID : " + id));
         return modelMapper.map(patientById, PatientsDTO.class);
     }
 
@@ -60,6 +61,16 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
+    public PatientsDTO dischargePatientFromHospital(Long patientID) {
+        Patient patient = patientRepository
+                .findById(patientID)
+                .orElseThrow(() -> new IllegalArgumentException("No patient found with this id..."));
+        int rowAffectedAfterDeletion = patientRepository.dischargePatient(patientID);
+        if(rowAffectedAfterDeletion == 0) throw new IllegalArgumentException("Cannot delete NULL patient");
+        return modelMapper.map(patient, PatientsDTO.class,"Patient Deleted");
+    }
+
+    @Override
     public List<Object[]> countBloodGroup() {
         return patientRepository.countBloodGroupType();
     }
@@ -75,10 +86,10 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public PatientsDTO updatePatientEmailById(Long id, String updateEmail) {
         int rowAffected = patientRepository.updatePatientEmailById(id, updateEmail);
-        if (rowAffected == 0) throw new RuntimeException("Patient not found with id : " + id);
+        if (rowAffected == 0) throw new IllegalArgumentException("Patient not found with id : " + id);
         Patient updatedPatient = patientRepository
                 .findById(id)
-                .orElseThrow(() -> new RuntimeException("Patient not found with id : " + id));
+                .orElseThrow(() -> new IllegalArgumentException("Patient not found with id : " + id));
         return modelMapper.map(updatedPatient, PatientsDTO.class);
     }
 

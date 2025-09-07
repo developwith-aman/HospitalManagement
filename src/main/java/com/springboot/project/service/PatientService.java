@@ -32,4 +32,6 @@ public interface PatientService {
     Page<Patient> getAllPagedPatients(Pageable pageable);
 
     PatientsDTO addInsuredPatient(AddNewPatient addInsuredPatient, Insurance insurance);
+
+    PatientsDTO dischargePatientFromHospital(Long patientID);
 }

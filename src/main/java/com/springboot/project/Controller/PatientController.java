@@ -11,6 +11,7 @@ import com.springboot.project.service.DoctorService;
 import com.springboot.project.service.InsuranceService;
 import com.springboot.project.service.PatientService;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.bridge.IMessage;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -61,6 +62,12 @@ public class PatientController {
         return patientService.findByName(patientName);
     }
 
+    // Delete OR Remove the patient with their name
+    @DeleteMapping(value = "/discharge/patient/{patientID}")
+    public PatientsDTO dischargePatientByName(@PathVariable Long patientID){
+        return patientService.dischargePatientFromHospital(patientID);
+    }
+
 
     // Fetching all the patients with a same type of blood group
     @GetMapping(value = "/by/blood/group/{group}")
@@ -91,7 +98,7 @@ public class PatientController {
 
 
     // This ↓ is the manual way of performing paging...
-//    @GetMapping(value = "/fetch-all-paged-patients")
+//    @GetMapping(value = "/fetch/all/paged/patients")
 //    public Page<Patient> fetchPagedPatients(
 //            @RequestParam(defaultValue = "0") int page,
 //            @RequestParam(defaultValue = "2") int size) {

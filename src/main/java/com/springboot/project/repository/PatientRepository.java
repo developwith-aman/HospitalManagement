@@ -74,6 +74,12 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     Page<Patient> fetchPagedPatients(Pageable pageable);
 
 
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM Patient p WHERE p.patientID = :patientID")
+    int dischargePatient(@Param("patientID") Long patientID);
+
+
     /**
      * JpaRepository<T, ID> takes two generics:
      * 1) T  -> The Entity class that maps to your database table (here: Patient)

@@ -28,7 +28,7 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
 
     // We can use '@Query' to define a custom JPQL query explicitly.
     // Spring Data derives queries from method names if property names match the entity fields.
-    // If property names don't match or the query is complex, @Query is used instead.
+    // If property names don't match or the query is complex, @Query is used,
     // Here the 'Patient' is not being taken from the database, it's from the Entity class
     // And p.bloodGroup refers to the entity field, not the column name in the database
     @Query("SELECT p FROM Patient p WHERE p.bloodGroup =:group")

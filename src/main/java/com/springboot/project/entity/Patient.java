@@ -114,6 +114,15 @@ public class Patient {
         this.appointmentTime = appointmentTime;
     }
 
+
+    // This ↓↓ is a derived (computed) boolean getter that Jackson treats as a virtual JSON property.
+    // It’s not persisted in the database, because there’s no field.
+
+    /**There is no hasInsurance field in your entity.
+    Instead, you’re computing the value dynamically:
+    If insurance is set → return true.
+    If insurance is null → return false.
+     */
     @JsonProperty("insured")
     public boolean getHasInsurance() {
         return this.insurance != null;

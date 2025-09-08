@@ -145,7 +145,7 @@ public class PatientController {
         return doctorService.addDoctor(addDoctor);
     }
 
-    @PatchMapping(value = "/re-assign/appointment/new-doctor")
+    @PatchMapping(value = "/assign/appointment/new/doctor")
     public Appointment reassignAppointmentToAnotherDoctor(
             @RequestParam int doctorID,
             @RequestParam Long appointmentID) {

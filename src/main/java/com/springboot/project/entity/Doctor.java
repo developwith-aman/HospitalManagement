@@ -29,7 +29,7 @@ public class Doctor {
     @Column(name = "doctorEmailId", unique = true, length = 150)
     private String email;
 
-    @OneToMany(mappedBy = "doctor")
+    @OneToMany(mappedBy = "doctor")   // inverse side
     @JsonManagedReference
     private List<Appointment> appointments;
 

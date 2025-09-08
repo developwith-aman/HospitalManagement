@@ -30,7 +30,7 @@ public class Patient {
     @Enumerated(EnumType.STRING) // Using the Enums here with the type STRING, mostly the ORDINAL is used in industries
     private BloodGroups bloodGroup;
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "insuranceID")  // Owning side
+    @JoinColumn(name = "insuranceID")  // Owning side of relationship
     private Insurance insurance;
 
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.REMOVE})

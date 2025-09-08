@@ -27,7 +27,7 @@ public class Appointment {
     @Column(name = "Reason", length = 500)
     private String reason;
 
-    @ManyToOne  // owning side, since appointment doesn't make any sense without patient, so it ows this relationship
+    @ManyToOne  // owning side, since appointment doesn't make any sense without patient, so it owns this relationship
     @JoinColumn(name = "patientID", nullable = false)
     @JsonBackReference
     private Patient patient;

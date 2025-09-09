@@ -8,12 +8,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class StaffDTO {
 
     private Long staffID;
-    private String staffName;
+    private String staffMemberName;
     private int age;
     private double salary;
     private StaffDepartments staffDepartment;

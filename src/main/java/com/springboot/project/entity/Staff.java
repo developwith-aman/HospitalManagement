@@ -17,7 +17,7 @@ public class Staff {
     private Long staffID;
 
     @Column(name = "Name")
-    private String staffName;
+    private String staffMemberName;
 
     @Column(name = "Age")
     private int age;
@@ -27,6 +27,6 @@ public class Staff {
 
     @Column(name = "Staff_Department")
     @Enumerated(EnumType.STRING)
-    private StaffDepartments staffDepartments;
+    private StaffDepartments staffDepartment;
 
 }

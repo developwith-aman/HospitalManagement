@@ -36,10 +36,10 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public StaffDTO addNewStaff(AddNewStaffMember addNewStaffMember) {
         Staff newStaff = new Staff();
-        newStaff.setStaffName(addNewStaffMember.getStaffName());
+        newStaff.setStaffMemberName(addNewStaffMember.getStaffMemberName());
         newStaff.setAge(addNewStaffMember.getAge());
         newStaff.setSalary(addNewStaffMember.getSalary());
-        newStaff.setStaffDepartments(addNewStaffMember.getStaffDepartments());
+        newStaff.setStaffDepartment(addNewStaffMember.getStaffDepartment());
 
         Staff newStaffAdded = staffRepository.save(newStaff);
         return modelMapper.map(newStaffAdded, StaffDTO.class);

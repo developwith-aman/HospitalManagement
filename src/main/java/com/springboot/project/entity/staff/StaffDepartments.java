@@ -1,6 +1,6 @@
 package com.springboot.project.entity.staff;
 
-public enum StaffDepartment {
+public enum StaffDepartments {
 
     CLEANING,       // Sweepers, Cleaners, Janitors
     WARD,           // Ward Boys, Ayahs, Patient Attendants

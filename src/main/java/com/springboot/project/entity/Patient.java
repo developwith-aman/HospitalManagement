@@ -33,7 +33,7 @@ public class Patient {
     @JoinColumn(name = "insuranceID")  // Owning side of relationship
     private Insurance insurance;
 
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.REMOVE})
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.REMOVE}, orphanRemoval = true)
     @JsonManagedReference
     private List<Appointment> appointments;   // Since a patient can have multiple appointments
 

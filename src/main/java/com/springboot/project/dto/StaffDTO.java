@@ -1,6 +1,6 @@
 package com.springboot.project.dto;
 
-import com.springboot.project.entity.staff.StaffDepartment;
+import com.springboot.project.entity.staff.StaffDepartments;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,5 +16,5 @@ public class StaffDTO {
     private String staffName;
     private int age;
     private double salary;
-    private StaffDepartment staffDepartment;
+    private StaffDepartments staffDepartment;
 }

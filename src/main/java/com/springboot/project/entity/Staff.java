@@ -1,6 +1,6 @@
 package com.springboot.project.entity;
 
-import com.springboot.project.entity.staff.StaffDepartment;
+import com.springboot.project.entity.staff.StaffDepartments;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +27,6 @@ public class Staff {
 
     @Column(name = "Staff_Department")
     @Enumerated(EnumType.STRING)
-    private StaffDepartment staffDepartment;
+    private StaffDepartments staffDepartments;
 
 }

@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -132,5 +133,12 @@ public class PatientController {
     @PostMapping(value = "/book/appointment")
     public Appointment bookAppointment(@RequestBody CreateNewAppointment newAppointment) {
         return appointmentService.bookPatientAppointment(newAppointment);
+    }
+
+    @DeleteMapping(value = "/delete/appointmentID/patientID/{appointmentID}/{patientID}")
+    public ResponseEntity<Appointment> deleteAppointment(
+            @PathVariable Long appointmentID,
+            @PathVariable  Long patientID){
+        return appointmentService.deleteAppointment(appointmentID, patientID);
     }
 }

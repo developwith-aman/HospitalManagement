@@ -39,7 +39,7 @@ public class StaffServiceImpl implements StaffService {
         newStaff.setStaffName(addNewStaffMember.getStaffName());
         newStaff.setAge(addNewStaffMember.getAge());
         newStaff.setSalary(addNewStaffMember.getSalary());
-        newStaff.setStaffDepartment(addNewStaffMember.getStaffDepartment());
+        newStaff.setStaffDepartments(addNewStaffMember.getStaffDepartments());
 
         Staff newStaffAdded = staffRepository.save(newStaff);
         return modelMapper.map(newStaffAdded, StaffDTO.class);

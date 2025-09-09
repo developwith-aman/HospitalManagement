@@ -1,6 +1,6 @@
 package com.springboot.project.dto;
 
-import com.springboot.project.entity.staff.StaffDepartment;
+import com.springboot.project.entity.staff.StaffDepartments;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,5 +12,5 @@ public class AddNewStaffMember {
     private String staffName;
     private int age;
     private double salary;
-    private StaffDepartment staffDepartment;
+    private StaffDepartments staffDepartments;
 }

@@ -9,7 +9,8 @@ import com.springboot.project.repository.DoctorRepository;
 import com.springboot.project.repository.PatientRepository;
 import com.springboot.project.service.AppointmentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.aspectj.asm.IModelFilter;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,6 +52,21 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         newAppointment.setDoctor(doctor);
         return newAppointment;
+    }
+
+    @Transactional
+    @Override
+    public ResponseEntity<Appointment> deleteAppointment(Long appointmentID, Long patientID) {
+        Patient patient = patientRepository.findById(patientID)
+                .orElseThrow(()-> new IllegalArgumentException("No patient found..."));
+        Appointment appointment = appointmentRepository.findById(appointmentID).
+                orElseThrow(()-> new IllegalArgumentException("No Appointment found..."));
+        if (appointment.getPatient().getPatientID().equals(patientID)) {
+            patient.getAppointments().remove(appointment);
+            appointment.setPatient(null); // orphan remove will work here....
+//            appointmentRepository.delete(appointment);  // since 'orphanRemoval = true' no need to delete explicitly
+        }
+        return ResponseEntity.ok(appointment);
     }
 
 

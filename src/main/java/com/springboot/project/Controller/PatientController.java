@@ -2,16 +2,13 @@ package com.springboot.project.Controller;
 
 import com.springboot.project.dto.*;
 import com.springboot.project.entity.Appointment;
-import com.springboot.project.entity.Doctor;
 import com.springboot.project.entity.Insurance;
 import com.springboot.project.entity.Patient;
 import com.springboot.project.entity.bloodType.BloodGroups;
 import com.springboot.project.service.AppointmentService;
-import com.springboot.project.service.DoctorService;
 import com.springboot.project.service.InsuranceService;
 import com.springboot.project.service.PatientService;
-import lombok.RequiredArgsConstructor;
-import org.aspectj.bridge.IMessage;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -28,16 +25,13 @@ public class PatientController {
     private final PatientService patientService;
     private final InsuranceService insuranceService;
     private final AppointmentService appointmentService;
-    private final DoctorService doctorService;
 
     public PatientController(PatientService patientService,
                              InsuranceService insuranceService,
-                             AppointmentService appointmentService,
-                             DoctorService doctorService) {
+                             AppointmentService appointmentService) {
         this.patientService = patientService;
         this.insuranceService = insuranceService;
         this.appointmentService = appointmentService;
-        this.doctorService = doctorService;
     }
 
 
@@ -64,7 +58,7 @@ public class PatientController {
 
     // Delete OR Remove the patient with their name
     @DeleteMapping(value = "/discharge/patient/{patientID}")
-    public PatientsDTO dischargePatientByName(@PathVariable Long patientID){
+    public PatientsDTO dischargePatientByName(@PathVariable Long patientID) {
         return patientService.dischargePatientFromHospital(patientID);
     }
 
@@ -138,17 +132,5 @@ public class PatientController {
     @PostMapping(value = "/book/appointment")
     public Appointment bookAppointment(@RequestBody CreateNewAppointment newAppointment) {
         return appointmentService.bookPatientAppointment(newAppointment);
-    }
-
-    @PostMapping(value = "/add/doctor")
-    public Doctor addDoctor(@RequestBody AddDoctor addDoctor) {
-        return doctorService.addDoctor(addDoctor);
-    }
-
-    @PatchMapping(value = "/assign/appointment/new/doctor")
-    public Appointment reassignAppointmentToAnotherDoctor(
-            @RequestParam int doctorID,
-            @RequestParam Long appointmentID) {
-        return appointmentService.reassignAppointment(doctorID, appointmentID);
     }
 }

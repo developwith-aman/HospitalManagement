@@ -37,9 +37,9 @@ public class Patient {
     @JsonManagedReference
     private List<Appointment> appointments;   // Since a patient can have multiple appointments
 
-    @Column(name = "appointmentTime", updatable = false)
+    @Column(name = "arrivalTime", updatable = false)
     @CreationTimestamp
-    private LocalDateTime appointmentTime;
+    private LocalDateTime arrivalTime;
 
     public Long getPatientID() {
         return patientID;
@@ -106,12 +106,13 @@ public class Patient {
     }
 
     // We are not writing the Getters and Setters here, since we are going to use the Lombok
-    public LocalDateTime getAppointmentTime() {
-        return appointmentTime;
+
+    public LocalDateTime getArrivalTime() {
+        return arrivalTime;
     }
 
-    public void setAppointmentTime(LocalDateTime appointmentTime) {
-        this.appointmentTime = appointmentTime;
+    public void setArrivalTime(LocalDateTime arrivalTime) {
+        this.arrivalTime = arrivalTime;
     }
 
 

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
@@ -21,20 +22,21 @@ public class Insurance {
 
     // Defining column mappings and constraints using JPA annotations
     @Id
+    @Column(name = "insuranceID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long policyID;
 
-    @Column(nullable = false, unique = true, name = "policyNumber")
+    @Column(name = "policyNumber", nullable = false, unique = true)
     private String policyNumber;
 
-    @Column(nullable = false, name = "provider")
+    @Column(name = "provider", nullable = false)
     private String policyProvider;
 
-    @Column(nullable = false, name = "effectiveDate")
-    @CreationTimestamp
+    @Column(name = "effectiveDate", nullable = false)
+//    @CreationTimestamp
     private LocalDateTime effectiveDate;
 
-    @Column(nullable = false, name = "expiryDate")
+    @Column(name = "expiryDate", nullable = false)
     private LocalDate expiryDate;
 
     @OneToOne(mappedBy = "insurance")  // inverse side

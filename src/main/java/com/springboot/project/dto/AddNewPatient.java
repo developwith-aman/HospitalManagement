@@ -1,6 +1,8 @@
 package com.springboot.project.dto;
 
+import com.springboot.project.entity.Insurance;
 import com.springboot.project.entity.bloodType.BloodGroups;
+import org.aspectj.weaver.reflect.InternalUseOnlyPointcutParser;
 
 import java.time.LocalDateTime;
 
@@ -11,7 +13,9 @@ public class AddNewPatient {
     private int age;
     private String email;
     private BloodGroups bloodGroup;
-    private LocalDateTime appointmentTime;
+    private LocalDateTime arrivalTime;
+    private Insurance insurance;
+    private Boolean hasInsurance = false;
 
     public String getPatientName() {
         return patientName;
@@ -53,11 +57,27 @@ public class AddNewPatient {
         this.bloodGroup = bloodGroup;
     }
 
-    public LocalDateTime getAppointmentTime() {
-        return appointmentTime;
+    public Insurance getInsurance() {
+        return insurance;
     }
 
-    public void setAppointmentTime(LocalDateTime appointmentTime) {
-        this.appointmentTime = appointmentTime;
+    public void setInsurance(Insurance insurance) {
+        this.insurance = insurance;
+    }
+
+    public Boolean getHasInsurance() {
+        return hasInsurance;
+    }
+
+    public void setHasInsurance(Boolean hasInsurance) {
+        this.hasInsurance = hasInsurance;
+    }
+
+    public LocalDateTime getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public void setArrivalTime(LocalDateTime arrivalTime) {
+        this.arrivalTime = arrivalTime;
     }
 }

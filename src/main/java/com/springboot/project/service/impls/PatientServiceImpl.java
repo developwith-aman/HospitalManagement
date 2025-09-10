@@ -66,8 +66,8 @@ public class PatientServiceImpl implements PatientService {
                 .findById(patientID)
                 .orElseThrow(() -> new IllegalArgumentException("No patient found with this id..."));
         int rowAffectedAfterDeletion = patientRepository.dischargePatient(patientID);
-        if(rowAffectedAfterDeletion == 0) throw new IllegalArgumentException("Cannot delete NULL patient");
-        return modelMapper.map(patient, PatientsDTO.class,"Patient Deleted");
+        if (rowAffectedAfterDeletion == 0) throw new IllegalArgumentException("Cannot delete NULL patient");
+        return modelMapper.map(patient, PatientsDTO.class, "Patient Deleted");
     }
 
     @Override
@@ -109,10 +109,23 @@ public class PatientServiceImpl implements PatientService {
             newPatient.setEmail(null);
         } else newPatient.setEmail(addNewPatient.getEmail());
         newPatient.setBloodGroup(addNewPatient.getBloodGroup());
-        newPatient.setAppointmentTime(addNewPatient.getAppointmentTime());
+        newPatient.setArrivalTime(addNewPatient.getArrivalTime());
 
+        if (addNewPatient.getInsurance() != null) {
+            Insurance insurance = new Insurance();
+            insurance.setPolicyNumber(addNewPatient.getInsurance().getPolicyNumber());
+            insurance.setPolicyProvider(addNewPatient.getInsurance().getPolicyProvider());
+            insurance.setEffectiveDate(addNewPatient.getInsurance().getEffectiveDate());
+            insurance.setExpiryDate(addNewPatient.getInsurance().getExpiryDate());
+
+            insurance.setPatient(newPatient);
+            newPatient.setInsurance(insurance);
+
+        }
         Patient newPatientSaved = patientRepository.save(newPatient);
-        return modelMapper.map(newPatientSaved, PatientsDTO.class);
+        PatientsDTO patientsDTO = modelMapper.map(newPatientSaved, PatientsDTO.class);
+        patientsDTO.setHasInsurance(newPatient.getInsurance() != null);
+        return patientsDTO;
     }
 
 

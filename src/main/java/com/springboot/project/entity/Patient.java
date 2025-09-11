@@ -41,6 +41,9 @@ public class Patient {
     @CreationTimestamp
     private LocalDateTime arrivalTime;
 
+    @Column(name = "numberOfAppointments")
+    private int numberOfAppointments = 0;
+
     public Long getPatientID() {
         return patientID;
     }
@@ -115,6 +118,13 @@ public class Patient {
         this.arrivalTime = arrivalTime;
     }
 
+    public int getNumberOfAppointments() {
+        return numberOfAppointments;
+    }
+
+    public void setNumberOfAppointments(int numberOfAppointments) {
+        this.numberOfAppointments = numberOfAppointments;
+    }
 
     // This ↓↓ is a derived (computed) boolean getter that Jackson treats as a virtual JSON property.
     // It’s not persisted in the database, because there’s no field.

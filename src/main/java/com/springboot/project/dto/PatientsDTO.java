@@ -1,5 +1,6 @@
 package com.springboot.project.dto;
 
+import com.springboot.project.entity.Appointment;
 import com.springboot.project.entity.bloodType.BloodGroups;
 
 import java.time.LocalDateTime;
@@ -14,7 +15,6 @@ public class PatientsDTO {
     private BloodGroups bloodGroup;
     private Boolean hasInsurance = false;
     private LocalDateTime arrivalTime;
-
     public Long getPatientID() {
         return patientID;
     }
@@ -82,7 +82,14 @@ public class PatientsDTO {
     public PatientsDTO() {
     }
 
-    public PatientsDTO(Long patientID, String patientName, String gender, int age, String email, BloodGroups bloodGroup, Boolean hasInsurance, LocalDateTime arrivalTime) {
+    public PatientsDTO(Long patientID,
+                       String patientName,
+                       String gender,
+                       int age,
+                       String email,
+                       BloodGroups bloodGroup,
+                       Boolean hasInsurance,
+                       LocalDateTime arrivalTime) {
         this.patientID = patientID;
         this.patientName = patientName;
         this.gender = gender;

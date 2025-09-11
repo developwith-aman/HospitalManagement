@@ -1,27 +1,34 @@
 package com.springboot.project.service.impls;
 
 import com.springboot.project.dto.AddDoctor;
+import com.springboot.project.dto.DoctorDTO;
 import com.springboot.project.entity.Doctor;
 import com.springboot.project.repository.DoctorRepository;
 import com.springboot.project.service.DoctorService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import javax.print.Doc;
 
 @Service
 public class DoctorServiceImpl implements DoctorService {
     private final DoctorRepository doctorRepository;
+    private final ModelMapper modelMapper;
 
-    public DoctorServiceImpl(DoctorRepository doctorRepository) {
+    public DoctorServiceImpl(DoctorRepository doctorRepository, ModelMapper modelMapper) {
         this.doctorRepository = doctorRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
-    public Doctor addDoctor(AddDoctor addDoctor) {
+    public DoctorDTO addDoctor(AddDoctor addDoctor) {
         Doctor doctor = new Doctor();
         doctor.setDoctorName(addDoctor.getDoctorName());
         doctor.setSpecialization(addDoctor.getSpecialization());
         doctor.setEmail(addDoctor.getEmail());
 
-        return doctorRepository.save(doctor);
+        doctorRepository.save(doctor);
+
+        return modelMapper.map(doctor, DoctorDTO.class);
     }
 }

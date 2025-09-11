@@ -41,5 +41,6 @@ public class Insurance {
 
     @OneToOne(mappedBy = "insurance")  // inverse side
     @JsonIgnore
+    @JoinColumn(name = "patient")
     private Patient patient;
 }

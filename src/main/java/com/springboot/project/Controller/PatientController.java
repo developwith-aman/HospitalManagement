@@ -125,16 +125,20 @@ public class PatientController {
 
 
     // Adding the insurance details to a patient
-    @PostMapping(value = "/add/patient/insurance/{patientID}")
+    @PostMapping(value = "/assign/insurance/patient/{patientID}")
     public Patient addInsurance(@RequestBody Insurance insurance, @PathVariable Long patientID) {
         return insuranceService.addInsuranceOfPatient(insurance, patientID);
     }
 
+
+    // Adding appointment to the patient
     @PostMapping(value = "/book/appointment")
-    public Appointment bookAppointment(@RequestBody CreateNewAppointment newAppointment) {
+    public AppointmentDTO bookAppointment(@RequestBody CreateNewAppointment newAppointment) {
         return appointmentService.bookPatientAppointment(newAppointment);
     }
 
+
+    // Delete a particular appointment of a particular patient
     @DeleteMapping(value = "/delete/appointmentID/patientID/{appointmentID}/{patientID}")
     public ResponseEntity<Appointment> deleteAppointment(
             @PathVariable Long appointmentID,

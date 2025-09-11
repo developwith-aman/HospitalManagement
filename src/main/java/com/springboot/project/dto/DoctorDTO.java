@@ -1,13 +1,17 @@
 package com.springboot.project.dto;
 
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class AddDoctor {
+@NoArgsConstructor
+@AllArgsConstructor
+public class DoctorDTO {
 
+    private int ID;
     private String doctorName;
     private String specialization;
     private String email;

@@ -1,10 +1,11 @@
 package com.springboot.project.service;
 
 import com.springboot.project.dto.AddDoctor;
+import com.springboot.project.dto.DoctorDTO;
 import com.springboot.project.entity.Doctor;
 
 
 public interface DoctorService {
 
-    Doctor addDoctor(AddDoctor addDoctor);
+    DoctorDTO addDoctor(AddDoctor addDoctor);
 }

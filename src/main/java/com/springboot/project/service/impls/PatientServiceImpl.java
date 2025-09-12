@@ -6,6 +6,7 @@ import com.springboot.project.entity.Patient;
 import com.springboot.project.entity.bloodType.BloodGroups;
 import com.springboot.project.repository.AppointmentRepository;
 import com.springboot.project.repository.DoctorRepository;
+import com.springboot.project.repository.InsuranceRepository;
 import com.springboot.project.repository.PatientRepository;
 import com.springboot.project.service.PatientService;
 import org.modelmapper.ModelMapper;
@@ -22,15 +23,16 @@ public class PatientServiceImpl implements PatientService {
     private final PatientRepository patientRepository;
     private final ModelMapper modelMapper;
     private final AppointmentRepository appointmentRepository;
-    private final DoctorRepository doctorRepository;
+    private final InsuranceRepository insuranceRepository;
 
     public PatientServiceImpl(PatientRepository patientRepository, ModelMapper modelMapper,
                               AppointmentRepository appointmentRepository,
-                              DoctorRepository doctorRepository) {
+                              DoctorRepository doctorRepository,
+                              InsuranceRepository insuranceRepository) {
         this.patientRepository = patientRepository;
         this.modelMapper = modelMapper;
         this.appointmentRepository = appointmentRepository;
-        this.doctorRepository = doctorRepository;
+        this.insuranceRepository = insuranceRepository;
     }
 
     @Override
@@ -66,13 +68,40 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
+
     public PatientsDTO dischargePatientFromHospital(Long patientID) {
         Patient patient = patientRepository
                 .findById(patientID)
                 .orElseThrow(() -> new IllegalArgumentException("No patient found with this id..."));
+
+        /** Delete all appointments of the patient before deleting the patient itself.
+         * Appointments are the owning side of the relationship, so we must remove them first to avoid
+         * foreign key constraint violations. Unlike Insurance (OneToOne with orphanRemoval),
+         * clearing the appointments list alone doesn't delete them automatically when using JPQL.
+         * Bulk JPQL deletes bypass Hibernate's cascade/orphan rules, so we explicitly delete appointments first.
+         **/
+        if (patient.getAppointments() != null) {
+            patientRepository.deleteAppointmentsByPatientId(patientID);
+        }
+        boolean hadInsurance = patient.getInsurance() != null;
+        patient.setInsurance(null);//Works here because orphanRemoval=true will mark the insurance as orphan and delete it automatically
+
+       /**When deleting a patient, we set insurance to null to trigger orphanRemoval and delete it from the DB.
+        * However, mapping the patient to DTO afterward would show hasInsurance = false, because the entity was modified.
+        * Two ways to handle this:
+        * Skip mapping hasInsurance using ModelMapper:
+        * modelMapper.typeMap(Patient.class, PatientsDTO.class).addMappings(mapper -> mapper.skip(PatientsDTO::setHasInsurance));
+        * Or, store the original value before nullifying and restore it in the DTO:
+        * boolean hadInsurance = patient.getInsurance() != null;
+        * patient.setInsurance(null);
+        * dto.setHasInsurance(hadInsurance);
+        **/
+
         int rowAffectedAfterDeletion = patientRepository.dischargePatient(patientID);
         if (rowAffectedAfterDeletion == 0) throw new IllegalArgumentException("Cannot delete NULL patient");
-        return modelMapper.map(patient, PatientsDTO.class, "Patient Deleted");
+        PatientsDTO patientsDTO = modelMapper.map(patient, PatientsDTO.class, "Patient Deleted");
+        patientsDTO.setHasInsurance(hadInsurance);
+        return patientsDTO;
     }
 
     @Override

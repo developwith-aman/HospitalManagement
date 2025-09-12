@@ -1,10 +1,9 @@
 package com.springboot.project.service;
 
+import com.springboot.project.dto.PatientsDTO;
 import com.springboot.project.entity.Insurance;
-import com.springboot.project.entity.Patient;
-
 public interface InsuranceService {
 
 
-    Patient addInsuranceOfPatient(Insurance insurance, Long id);
+    PatientsDTO addInsuranceOfPatient(Insurance insurance, Long id);
 }

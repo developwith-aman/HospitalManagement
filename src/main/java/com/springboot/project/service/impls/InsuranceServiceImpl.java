@@ -7,6 +7,7 @@ import com.springboot.project.repository.InsuranceRepository;
 import com.springboot.project.repository.PatientRepository;
 import com.springboot.project.service.InsuranceService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,13 +18,13 @@ public class InsuranceServiceImpl implements InsuranceService {
 
     private final InsuranceRepository insuranceRepository; // the required constructor will be provided by '@RequiredArgsConstructor'
     private final PatientRepository patientRepository;
-
+    private final ModelMapper modelMapper;
     @Autowired
     PatientsDTO patientsDTO;
 
     @Override
     @Transactional
-    public Patient addInsuranceOfPatient(Insurance insurance, Long patientID) {
+    public PatientsDTO addInsuranceOfPatient(Insurance insurance, Long patientID) {
         Patient patient = patientRepository
                 .findById(patientID)
                 .orElseThrow(() -> new IllegalArgumentException("No Patient found with id : " + patientID));
@@ -31,7 +32,7 @@ public class InsuranceServiceImpl implements InsuranceService {
         patient.setInsurance(insurance);
         insurance.setPatient(patient);
         insuranceRepository.save(insurance);
-        return patient;
+        return modelMapper.map(patient, PatientsDTO.class);
     }
 }
 

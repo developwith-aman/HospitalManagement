@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,13 +30,13 @@ public class Patient {
     // This column is created by hibernate, it is not already been created inside the database
     @Enumerated(EnumType.STRING) // Using the Enums here with the type STRING, mostly the ORDINAL is used in industries
     private BloodGroups bloodGroup;
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     @JoinColumn(name = "insuranceID")  // Owning side of relationship
     private Insurance insurance;
 
-    @OneToMany(mappedBy = "patient", cascade = {CascadeType.REMOVE}, orphanRemoval = true)
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.ALL}, orphanRemoval = true)
     @JsonManagedReference
-    private List<Appointment> appointments;   // Since a patient can have multiple appointments
+    private List<Appointment> appointments = new ArrayList<>();   // Since a patient can have multiple appointments
 
     @Column(name = "arrivalTime", updatable = false)
     @CreationTimestamp
@@ -134,7 +135,7 @@ public class Patient {
     If insurance is set → return true.
     If insurance is null → return false.
      */
-    @JsonProperty("insured")
+    @JsonProperty("havingInsurance")
     public boolean getHasInsurance() {
         return this.insurance != null;
     }

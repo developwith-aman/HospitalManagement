@@ -123,7 +123,7 @@ public class PatientController {
     }
 
 
-    // Adding the patient with the insurance details
+    // Adding the patient with the insurance details  // -- this seems to be redundant here --
     @PostMapping(value = "/add/insured/patient")
     public PatientsDTO addPatientWithInsurance(@RequestBody AddInsuredPatient addInsuredPatient) {
         return patientService.addInsuredPatient(addInsuredPatient.getPatient(), addInsuredPatient.getInsurance());
@@ -132,7 +132,7 @@ public class PatientController {
 
     // Adding the insurance details to a patient
     @PostMapping(value = "/assign/insurance/patientID/{patientID}")
-    public Patient addInsurance(@RequestBody Insurance insurance, @PathVariable Long patientID) {
+    public PatientsDTO addInsurance(@RequestBody Insurance insurance, @PathVariable Long patientID) {
         return insuranceService.addInsuranceOfPatient(insurance, patientID);
     }
 

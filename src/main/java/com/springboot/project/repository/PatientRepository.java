@@ -2,7 +2,6 @@ package com.springboot.project.repository;
 
 import com.springboot.project.dto.BloodGroupCount;
 
-import com.springboot.project.dto.PatientAppointmentsDTO;
 import com.springboot.project.entity.Patient;
 import com.springboot.project.entity.bloodType.BloodGroups;
 import org.springframework.data.domain.Page;
@@ -74,6 +73,12 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     @Query(value = "SELECT * FROM patient", nativeQuery = true)
     Page<Patient> fetchPagedPatients(Pageable pageable);
 
+
+    // Deleting the patient appointments first and then deleting the patient
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Appointment a WHERE a.patient.patientID = :patientID")
+    int deleteAppointmentsByPatientId(@Param("patientID") Long patientID);
 
     @Modifying
     @Transactional

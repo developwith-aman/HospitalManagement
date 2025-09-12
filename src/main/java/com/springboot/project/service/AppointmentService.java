@@ -15,4 +15,6 @@ public interface AppointmentService {
     Appointment reassignAppointment(int doctorID, Long appointmentID);
 
     ResponseEntity<Appointment> deleteAppointment(Long appointmentID, Long patientID);
+
+    List<Appointment> getAppointmentsOfDoctor(int doctorID);
 }

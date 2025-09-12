@@ -1,7 +1,6 @@
 package com.springboot.project.service.impls;
 
 import com.springboot.project.dto.*;
-import com.springboot.project.entity.Appointment;
 import com.springboot.project.entity.Insurance;
 import com.springboot.project.entity.Patient;
 import com.springboot.project.entity.bloodType.BloodGroups;
@@ -16,8 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
 
 @Service
 public class PatientServiceImpl implements PatientService {

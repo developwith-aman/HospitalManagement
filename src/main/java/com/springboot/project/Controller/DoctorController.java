@@ -10,6 +10,8 @@ import com.springboot.project.service.AppointmentService;
 import com.springboot.project.service.DoctorService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/doctors")
 public class DoctorController {
@@ -32,10 +34,18 @@ public class DoctorController {
         return doctorService.updateDoctorEmailById(doctorID, updateEmail.getEmail());
     }
 
+
+    // Reassigning appointment to a new doctor
+    // {{baseURL}}/doctors/assign/appointment/new/doctor?doctorID=1&appointmentID=5
     @PatchMapping(value = "/assign/appointment/new/doctor")
     public Appointment reassignAppointmentToAnotherDoctor(
             @RequestParam int doctorID,
             @RequestParam Long appointmentID) {
         return appointmentService.reassignAppointment(doctorID, appointmentID);
+    }
+
+    @GetMapping(value = "/get/appointments/{doctorID}")
+    public List<Appointment> getAppointmentsOfDoctor(@PathVariable int doctorID){
+        return appointmentService.getAppointmentsOfDoctor(doctorID);
     }
 }

@@ -67,6 +67,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .orElseThrow(() -> new IllegalArgumentException("No doctor found..."));
 
         newAppointment.setDoctor(doctor);
+        doctor.getAppointments().add(newAppointment);  // for bidirectional mapping
 //        return appointmentRepository.save(newAppointment); // this is not needed here, since we are inside Transactional
         return newAppointment;
     }

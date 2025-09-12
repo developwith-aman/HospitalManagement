@@ -2,6 +2,7 @@ package com.springboot.project.service.impls;
 
 import com.springboot.project.dto.AppointmentDTO;
 import com.springboot.project.dto.CreateNewAppointment;
+import com.springboot.project.dto.PatientAppointmentsDTO;
 import com.springboot.project.entity.Appointment;
 import com.springboot.project.entity.Doctor;
 import com.springboot.project.entity.Patient;
@@ -14,6 +15,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
@@ -39,6 +42,10 @@ public class AppointmentServiceImpl implements AppointmentService {
         appointment.setAppointment_time(newAppointment.getAppointment_time());
         appointment.setReason(newAppointment.getReason());
 
+        // Maintains Bidirectional mapping
+        patient.getAppointments().add(appointment);
+        doctor.getAppointments().add(appointment);
+
         appointmentRepository.save(appointment);
 
         patient.setNumberOfAppointments(patient.getNumberOfAppointments() + 1);
@@ -54,10 +61,10 @@ public class AppointmentServiceImpl implements AppointmentService {
     public Appointment reassignAppointment(int doctorID, Long appointmentID) {
         Appointment newAppointment = appointmentRepository
                 .findById(appointmentID)
-                .orElseThrow(()-> new IllegalArgumentException("No appointment found..."));
+                .orElseThrow(() -> new IllegalArgumentException("No appointment found..."));
         Doctor doctor = doctorRepository
                 .findById(doctorID)
-                .orElseThrow(()-> new IllegalArgumentException("No doctor found..."));
+                .orElseThrow(() -> new IllegalArgumentException("No doctor found..."));
 
         newAppointment.setDoctor(doctor);
         return newAppointment;
@@ -67,9 +74,9 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public ResponseEntity<Appointment> deleteAppointment(Long appointmentID, Long patientID) {
         Patient patient = patientRepository.findById(patientID)
-                .orElseThrow(()-> new IllegalArgumentException("No patient found..."));
+                .orElseThrow(() -> new IllegalArgumentException("No patient found..."));
         Appointment appointment = appointmentRepository.findById(appointmentID).
-                orElseThrow(()-> new IllegalArgumentException("No Appointment found..."));
+                orElseThrow(() -> new IllegalArgumentException("No Appointment found..."));
         if (appointment.getPatient().getPatientID().equals(patientID)) {
             patient.getAppointments().remove(appointment);
             appointment.setPatient(null); // orphan remove will work here....

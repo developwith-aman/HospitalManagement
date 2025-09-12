@@ -85,6 +85,12 @@ public class PatientController {
     }
 
 
+    // Fetching Patient's Appointments
+    @GetMapping(value = "/appointments/patientId/{patientId}")
+    public List<PatientAppointmentsDTO> getPatientAppointments(@PathVariable Long patientId){
+        return patientService.getPatientAppointments(patientId);
+    }
+
     // To update the email of the patient
     @PatchMapping(value = "/update/email/{patientId}")
     public PatientsDTO updatePatientEmail(@PathVariable Long patientId, @RequestBody UpdateEmail updateEmail) {

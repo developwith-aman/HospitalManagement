@@ -1,11 +1,12 @@
 package com.springboot.project.service.impls;
 
-import com.springboot.project.dto.AddNewPatient;
-import com.springboot.project.dto.BloodGroupCount;
-import com.springboot.project.dto.PatientsDTO;
+import com.springboot.project.dto.*;
+import com.springboot.project.entity.Appointment;
 import com.springboot.project.entity.Insurance;
 import com.springboot.project.entity.Patient;
 import com.springboot.project.entity.bloodType.BloodGroups;
+import com.springboot.project.repository.AppointmentRepository;
+import com.springboot.project.repository.DoctorRepository;
 import com.springboot.project.repository.PatientRepository;
 import com.springboot.project.service.PatientService;
 import org.modelmapper.ModelMapper;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -22,10 +24,16 @@ public class PatientServiceImpl implements PatientService {
 
     private final PatientRepository patientRepository;
     private final ModelMapper modelMapper;
+    private final AppointmentRepository appointmentRepository;
+    private final DoctorRepository doctorRepository;
 
-    public PatientServiceImpl(PatientRepository patientRepository, ModelMapper modelMapper) {
+    public PatientServiceImpl(PatientRepository patientRepository, ModelMapper modelMapper,
+                              AppointmentRepository appointmentRepository,
+                              DoctorRepository doctorRepository) {
         this.patientRepository = patientRepository;
         this.modelMapper = modelMapper;
+        this.appointmentRepository = appointmentRepository;
+        this.doctorRepository = doctorRepository;
     }
 
     @Override
@@ -149,5 +157,12 @@ public class PatientServiceImpl implements PatientService {
         PatientsDTO patientsDTO = modelMapper.map(newSavedPatient, PatientsDTO.class);
         patientsDTO.setHasInsurance(newSavedPatient.getInsurance() != null);
         return patientsDTO;
+    }
+
+
+    // Fetching Appointments of a patient
+    @Override
+    public List<PatientAppointmentsDTO> getPatientAppointments(Long patientId) {
+        return appointmentRepository.fetchPatientAppointments(patientId);
     }
 }

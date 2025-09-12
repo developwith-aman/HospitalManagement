@@ -2,7 +2,9 @@ package com.springboot.project.service;
 
 import com.springboot.project.dto.AddNewPatient;
 import com.springboot.project.dto.BloodGroupCount;
+import com.springboot.project.dto.PatientAppointmentsDTO;
 import com.springboot.project.dto.PatientsDTO;
+import com.springboot.project.entity.Appointment;
 import com.springboot.project.entity.Insurance;
 import com.springboot.project.entity.Patient;
 import com.springboot.project.entity.bloodType.BloodGroups;
@@ -34,4 +36,6 @@ public interface PatientService {
     PatientsDTO addInsuredPatient(AddNewPatient addInsuredPatient, Insurance insurance);
 
     PatientsDTO dischargePatientFromHospital(Long patientID);
+
+    List<PatientAppointmentsDTO> getPatientAppointments(Long patientId);
 }

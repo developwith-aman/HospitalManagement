@@ -2,6 +2,7 @@ package com.springboot.project.repository;
 
 import com.springboot.project.dto.BloodGroupCount;
 
+import com.springboot.project.dto.PatientAppointmentsDTO;
 import com.springboot.project.entity.Patient;
 import com.springboot.project.entity.bloodType.BloodGroups;
 import org.springframework.data.domain.Page;

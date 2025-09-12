@@ -67,6 +67,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .orElseThrow(() -> new IllegalArgumentException("No doctor found..."));
 
         newAppointment.setDoctor(doctor);
+//        return appointmentRepository.save(newAppointment); // this is not needed here, since we are inside Transactional
         return newAppointment;
     }
 
@@ -85,6 +86,15 @@ public class AppointmentServiceImpl implements AppointmentService {
         patient.setNumberOfAppointments(patient.getNumberOfAppointments() - 1);
         patientRepository.save(patient);
         return ResponseEntity.ok(appointment);
+    }
+
+    @Override
+    public List<Appointment> getAppointmentsOfDoctor(int doctorID) {
+        Doctor doctor = doctorRepository.findById(doctorID).
+                orElseThrow(()-> new IllegalArgumentException("No doctor found..."));
+        List<Appointment> appointments = doctor.getAppointments();  // this can be inlined with 'return'
+
+        return appointments;
     }
 
 

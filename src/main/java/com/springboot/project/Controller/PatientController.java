@@ -125,7 +125,7 @@ public class PatientController {
 
 
     // Adding the insurance details to a patient
-    @PostMapping(value = "/assign/insurance/patient/{patientID}")
+    @PostMapping(value = "/assign/insurance/patientID/{patientID}")
     public Patient addInsurance(@RequestBody Insurance insurance, @PathVariable Long patientID) {
         return insuranceService.addInsuranceOfPatient(insurance, patientID);
     }

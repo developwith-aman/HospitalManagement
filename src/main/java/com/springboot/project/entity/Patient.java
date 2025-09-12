@@ -42,7 +42,7 @@ public class Patient {
     private LocalDateTime arrivalTime;
 
     @Column(name = "numberOfAppointments")
-    private int numberOfAppointments = 0;
+    private int numberOfAppointments;
 
     public Long getPatientID() {
         return patientID;

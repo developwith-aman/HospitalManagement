@@ -8,8 +8,6 @@ import com.springboot.project.service.DoctorService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import javax.print.Doc;
-
 @Service
 public class DoctorServiceImpl implements DoctorService {
     private final DoctorRepository doctorRepository;
@@ -29,6 +27,15 @@ public class DoctorServiceImpl implements DoctorService {
 
         doctorRepository.save(doctor);
 
+        return modelMapper.map(doctor, DoctorDTO.class);
+    }
+
+    @Override
+    public DoctorDTO updateDoctorEmailById(int doctorID, String email) {
+        Doctor doctor = doctorRepository.findById(doctorID).
+                orElseThrow(()-> new IllegalArgumentException("No doctor found"));
+        doctor.setEmail(email);
+        doctorRepository.save(doctor);
         return modelMapper.map(doctor, DoctorDTO.class);
     }
 }

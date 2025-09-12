@@ -15,6 +15,7 @@ public class PatientsDTO {
     private BloodGroups bloodGroup;
     private Boolean hasInsurance = false;
     private LocalDateTime arrivalTime;
+    private int numberOfAppointments;
     public Long getPatientID() {
         return patientID;
     }
@@ -79,6 +80,14 @@ public class PatientsDTO {
         this.arrivalTime = arrivalTime;
     }
 
+    public int getNumberOfAppointments() {
+        return numberOfAppointments;
+    }
+
+    public void setNumberOfAppointments(int numberOfAppointments) {
+        this.numberOfAppointments = numberOfAppointments;
+    }
+
     public PatientsDTO() {
     }
 
@@ -89,7 +98,8 @@ public class PatientsDTO {
                        String email,
                        BloodGroups bloodGroup,
                        Boolean hasInsurance,
-                       LocalDateTime arrivalTime) {
+                       LocalDateTime arrivalTime,
+                       int numberOfAppointments) {
         this.patientID = patientID;
         this.patientName = patientName;
         this.gender = gender;
@@ -98,6 +108,8 @@ public class PatientsDTO {
         this.bloodGroup = bloodGroup;
         this.hasInsurance = hasInsurance;
         this.arrivalTime = arrivalTime;
+        this.numberOfAppointments = numberOfAppointments;
+
     }
 }
 

@@ -2,6 +2,8 @@ package com.springboot.project.Controller;
 
 import com.springboot.project.dto.AddDoctor;
 import com.springboot.project.dto.DoctorDTO;
+import com.springboot.project.dto.PatientsDTO;
+import com.springboot.project.dto.UpdateEmail;
 import com.springboot.project.entity.Appointment;
 import com.springboot.project.entity.Doctor;
 import com.springboot.project.service.AppointmentService;
@@ -23,6 +25,11 @@ public class DoctorController {
     @PostMapping(value = "/add/doctor")
     public DoctorDTO addDoctor(@RequestBody AddDoctor addDoctor) {
         return doctorService.addDoctor(addDoctor);
+    }
+
+    @PatchMapping(value = "/update/email/{doctorID}")
+    public DoctorDTO updateDoctorEmail(@PathVariable int doctorID, @RequestBody UpdateEmail updateEmail) {
+        return doctorService.updateDoctorEmailById(doctorID, updateEmail.getEmail());
     }
 
     @PatchMapping(value = "/assign/appointment/new/doctor")

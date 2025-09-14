@@ -10,6 +10,9 @@ import com.springboot.project.service.DepartmentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
 
@@ -23,6 +26,8 @@ public class DepartmentServiceImpl implements DepartmentService {
         this.doctorRepository = doctorRepository;
     }
 
+
+    // Add new department
     public DepartmentDTO addNewDepartment(AddNewDeptDTO addNewDeptDTO) {
         Doctor doctor = doctorRepository.findById(addNewDeptDTO.getDepartmentHeadId())
                 .orElseThrow(() -> new RuntimeException("Doctor not found"));
@@ -51,5 +56,17 @@ public class DepartmentServiceImpl implements DepartmentService {
     public String generateDepartmentCode(String departmentName, Long id) {
         String prefix = departmentName.substring(0, 3).toUpperCase();
         return prefix + String.format("%03d", id);
+    }
+
+
+    // To fetch all departments
+    @Override
+    public List<DepartmentDTO> showAllDepartment() {
+        List<Department> department = departmentRepository.findAll();
+        List<DepartmentDTO> departmentDTOList = new ArrayList<>();
+        for (Department dept : department){
+            departmentDTOList.add(modelMapper.map(dept, DepartmentDTO.class));
+        }
+        return departmentDTOList;
     }
 }

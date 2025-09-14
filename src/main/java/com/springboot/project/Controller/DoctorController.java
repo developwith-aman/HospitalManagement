@@ -24,6 +24,7 @@ public class DoctorController {
         this.appointmentService = appointmentService;
     }
 
+    // URL : http://localhost:8080/doctors/.....
     @PostMapping(value = "/add/doctor")
     public DoctorDTO addDoctor(@RequestBody AddDoctor addDoctor) {
         return doctorService.addDoctor(addDoctor);

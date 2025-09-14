@@ -23,7 +23,7 @@ public class DepartmentController {
         return departmentService.addNewDepartment(addNewDeptDTO);
     }
 
-    @GetMapping(value = "/show/departments")
+    @GetMapping(value = "/show")
     public List<DepartmentDTO> showAllDepartment(){
         return departmentService.showAllDepartment();
     }

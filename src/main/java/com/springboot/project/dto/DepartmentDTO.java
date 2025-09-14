@@ -17,4 +17,5 @@ public class DepartmentDTO {
     private String departmentCode;
     private String departmentName;
     private int headDoctorID;
+    private String headDoctorName;
 }

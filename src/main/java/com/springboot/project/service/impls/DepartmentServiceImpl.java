@@ -9,6 +9,7 @@ import com.springboot.project.repository.DoctorRepository;
 import com.springboot.project.service.DepartmentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 
     // Add new department
+    @Transactional
     public DepartmentDTO addNewDepartment(AddNewDeptDTO addNewDeptDTO) {
         Doctor doctor = doctorRepository.findById(addNewDeptDTO.getDepartmentHeadId())
                 .orElseThrow(() -> new RuntimeException("Doctor not found"));

@@ -1,10 +1,12 @@
 package com.springboot.project.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.context.annotation.EnableMBeanExport;
 
 import java.util.List;
 
@@ -35,6 +37,10 @@ public class Doctor {
 
     @ManyToMany(mappedBy = "doctors")
     private List<Department> departments;
+
+    @OneToOne(mappedBy = "headDoctor")
+    @JsonManagedReference("doctor-department")
+    private Department headOfDepartment;
 
     public int getID() {
         return ID;
@@ -82,5 +88,13 @@ public class Doctor {
 
     public void setDepartments(List<Department> departments) {
         this.departments = departments;
+    }
+
+    public Department getHeadOfDepartment() {
+        return headOfDepartment;
+    }
+
+    public void setHeadOfDepartment(Department headOfDepartment) {
+        this.headOfDepartment = headOfDepartment;
     }
 }

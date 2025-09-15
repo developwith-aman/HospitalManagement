@@ -1,6 +1,8 @@
 package com.springboot.project.service.impls;
 
+import com.springboot.project.dto.AddDoctorsToDeptDTO;
 import com.springboot.project.dto.AddNewDeptDTO;
+import com.springboot.project.dto.ApiResponseForDoctorToDept;
 import com.springboot.project.dto.DepartmentDTO;
 import com.springboot.project.entity.Department;
 import com.springboot.project.entity.Doctor;
@@ -70,5 +72,23 @@ public class DepartmentServiceImpl implements DepartmentService {
             departmentDTOList.add(modelMapper.map(dept, DepartmentDTO.class));
         }
         return departmentDTOList;
+    }
+
+    @Override
+    public ApiResponseForDoctorToDept addDoctorsToDept(AddDoctorsToDeptDTO addDoctorsToDeptDTO) {
+        Department department = departmentRepository
+                .findById(addDoctorsToDeptDTO.getDepartmentID())
+                .orElseThrow(()-> new IllegalArgumentException("No department found with this ID..."));
+
+        Doctor doctor = doctorRepository
+                .findById(addDoctorsToDeptDTO.getDoctorID())
+                .orElseThrow(() -> new RuntimeException("Doctor not found"));
+
+        department.getDoctors().add(doctor);
+        doctor.getDepartments().add(department);
+
+        department = departmentRepository.save(department);
+
+        return new ApiResponseForDoctorToDept("Doctor : "+ doctor.getDoctorName()+" added to "+ department.getDepartmentName());
     }
 }

@@ -1,6 +1,7 @@
 package com.springboot.project.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -36,6 +37,7 @@ public class Doctor {
     private List<Appointment> appointments;
 
     @ManyToMany(mappedBy = "doctors")
+    @JsonIgnore
     private List<Department> departments;
 
     @OneToOne(mappedBy = "headDoctor")

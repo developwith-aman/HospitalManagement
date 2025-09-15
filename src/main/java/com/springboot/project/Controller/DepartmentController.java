@@ -1,8 +1,12 @@
 package com.springboot.project.Controller;
 
+import com.springboot.project.dto.AddDoctorsToDeptDTO;
 import com.springboot.project.dto.AddNewDeptDTO;
+import com.springboot.project.dto.ApiResponseForDoctorToDept;
 import com.springboot.project.dto.DepartmentDTO;
+import com.springboot.project.entity.Doctor;
 import com.springboot.project.service.DepartmentService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,4 +32,9 @@ public class DepartmentController {
         return departmentService.showAllDepartment();
     }
 
+
+    @PostMapping(value = "/add/doctors")
+    public ResponseEntity<ApiResponseForDoctorToDept> addDoctorsToDepartment(@RequestBody AddDoctorsToDeptDTO addDoctorsToDeptDTO){
+        return ResponseEntity.ok(departmentService.addDoctorsToDept(addDoctorsToDeptDTO));
+    }
 }

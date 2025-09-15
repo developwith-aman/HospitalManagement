@@ -30,7 +30,7 @@ public class Department {
     private String departmentName;
 
     @OneToOne
-    @JoinColumn(name = "departmentHead", nullable = false, unique = true)
+    @JoinColumn(name = "departmentHead", nullable = false)
     @JsonBackReference("doctor-department")
     private Doctor headDoctor;
 

@@ -1,7 +1,7 @@
 package com.springboot.project.Controller;
 
-import com.springboot.project.dto.AddNewStaffMember;
-import com.springboot.project.dto.StaffDTO;
+import com.springboot.project.dto.staff.AddNewStaffMember;
+import com.springboot.project.dto.staff.StaffDTO;
 import com.springboot.project.service.StaffService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

@@ -1,6 +1,9 @@
 package com.springboot.project.Controller;
 
 import com.springboot.project.dto.*;
+import com.springboot.project.dto.appointment.AppointmentDTO;
+import com.springboot.project.dto.appointment.CreateNewAppointment;
+import com.springboot.project.dto.patient.*;
 import com.springboot.project.entity.Appointment;
 import com.springboot.project.entity.Insurance;
 import com.springboot.project.entity.Patient;

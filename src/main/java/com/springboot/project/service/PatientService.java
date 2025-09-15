@@ -1,10 +1,9 @@
 package com.springboot.project.service;
 
-import com.springboot.project.dto.AddNewPatient;
-import com.springboot.project.dto.BloodGroupCount;
-import com.springboot.project.dto.PatientAppointmentsDTO;
-import com.springboot.project.dto.PatientsDTO;
-import com.springboot.project.entity.Appointment;
+import com.springboot.project.dto.patient.AddNewPatient;
+import com.springboot.project.dto.patient.BloodGroupCount;
+import com.springboot.project.dto.patient.PatientAppointmentsDTO;
+import com.springboot.project.dto.patient.PatientsDTO;
 import com.springboot.project.entity.Insurance;
 import com.springboot.project.entity.Patient;
 import com.springboot.project.entity.bloodType.BloodGroups;

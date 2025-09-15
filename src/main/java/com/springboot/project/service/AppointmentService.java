@@ -1,8 +1,7 @@
 package com.springboot.project.service;
 
-import com.springboot.project.dto.AppointmentDTO;
-import com.springboot.project.dto.CreateNewAppointment;
-import com.springboot.project.dto.PatientAppointmentsDTO;
+import com.springboot.project.dto.appointment.AppointmentDTO;
+import com.springboot.project.dto.appointment.CreateNewAppointment;
 import com.springboot.project.entity.Appointment;
 import org.springframework.http.ResponseEntity;
 

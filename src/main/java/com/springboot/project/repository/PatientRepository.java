@@ -1,6 +1,6 @@
 package com.springboot.project.repository;
 
-import com.springboot.project.dto.BloodGroupCount;
+import com.springboot.project.dto.patient.BloodGroupCount;
 
 import com.springboot.project.entity.Patient;
 import com.springboot.project.entity.bloodType.BloodGroups;
@@ -46,7 +46,7 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
      instead of fetching the whole entity. */
     // This query uses a JPQL constructor expression to map results into the DTO (BloodGroupCount here).
     // Ensure that BloodGroupCount has a matching constructor (BloodGroups bloodGroup, Long count).
-    @Query("SELECT new com.springboot.project.dto.BloodGroupCount(p.bloodGroup, " +
+    @Query("SELECT new com.springboot.project.dto.patient.BloodGroupCount(p.bloodGroup, " +
             "Count(p)) from Patient p GROUP BY p.bloodGroup ")
     List<BloodGroupCount> countBloodGroupByProjection();
     // ↑ Fetches only the required fields (bloodGroup and count) using a JPQL constructor expression,

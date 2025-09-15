@@ -1,19 +1,20 @@
-package com.springboot.project.dto;
+package com.springboot.project.dto.appointment;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-
 @Getter
 @Setter
-public class AppointmentDTO {
+@NoArgsConstructor
+@AllArgsConstructor
+public class CreateNewAppointment {
 
-    private Long appointmentId;
     private int doctorId;
     private Long patientId;
     private LocalDateTime appointment_time;
     private String reason;
-    private int numberOfAppointments;
 }

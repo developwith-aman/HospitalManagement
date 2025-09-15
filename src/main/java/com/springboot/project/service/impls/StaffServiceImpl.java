@@ -1,7 +1,7 @@
 package com.springboot.project.service.impls;
 
-import com.springboot.project.dto.AddNewStaffMember;
-import com.springboot.project.dto.StaffDTO;
+import com.springboot.project.dto.staff.AddNewStaffMember;
+import com.springboot.project.dto.staff.StaffDTO;
 import com.springboot.project.entity.Staff;
 import com.springboot.project.repository.StaffRepository;
 import com.springboot.project.service.StaffService;

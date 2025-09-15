@@ -1,4 +1,4 @@
-package com.springboot.project.dto;
+package com.springboot.project.dto.department;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,8 +1,7 @@
 package com.springboot.project.service;
 
-import com.springboot.project.dto.AddNewStaffMember;
-import com.springboot.project.dto.PatientsDTO;
-import com.springboot.project.dto.StaffDTO;
+import com.springboot.project.dto.staff.AddNewStaffMember;
+import com.springboot.project.dto.staff.StaffDTO;
 
 import java.util.List;
 

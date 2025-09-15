@@ -1,11 +1,7 @@
 package com.springboot.project.service;
 
-import com.springboot.project.dto.AddDoctor;
-import com.springboot.project.dto.DoctorDTO;
-import com.springboot.project.dto.PatientsDTO;
-import com.springboot.project.entity.Doctor;
-
-import javax.print.Doc;
+import com.springboot.project.dto.doctor.AddDoctor;
+import com.springboot.project.dto.doctor.DoctorDTO;
 
 
 public interface DoctorService {

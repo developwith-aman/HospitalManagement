@@ -1,4 +1,4 @@
-package com.springboot.project.dto;
+package com.springboot.project.dto.doctor;
 
 
 import lombok.Getter;

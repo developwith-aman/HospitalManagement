@@ -1,6 +1,6 @@
 package com.springboot.project.config;
 
-import com.springboot.project.dto.PatientsDTO;
+import com.springboot.project.dto.patient.PatientsDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,6 +1,6 @@
 package com.springboot.project.service.impls;
 
-import com.springboot.project.dto.PatientsDTO;
+import com.springboot.project.dto.patient.PatientsDTO;
 import com.springboot.project.entity.Insurance;
 import com.springboot.project.entity.Patient;
 import com.springboot.project.repository.InsuranceRepository;

@@ -1,10 +1,9 @@
 package com.springboot.project.Controller;
 
-import com.springboot.project.dto.AddDoctorsToDeptDTO;
-import com.springboot.project.dto.AddNewDeptDTO;
-import com.springboot.project.dto.ApiResponseForDoctorToDept;
-import com.springboot.project.dto.DepartmentDTO;
-import com.springboot.project.entity.Doctor;
+import com.springboot.project.dto.department.Doctor_DepartmentDTO;
+import com.springboot.project.dto.department.AddNewDeptDTO;
+import com.springboot.project.dto.ApiResponse;
+import com.springboot.project.dto.department.DepartmentDTO;
 import com.springboot.project.service.DepartmentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +33,7 @@ public class DepartmentController {
 
 
     @PostMapping(value = "/add/doctors")
-    public ResponseEntity<ApiResponseForDoctorToDept> addDoctorsToDepartment(@RequestBody AddDoctorsToDeptDTO addDoctorsToDeptDTO){
-        return ResponseEntity.ok(departmentService.addDoctorsToDept(addDoctorsToDeptDTO));
+    public ResponseEntity<ApiResponse> addDoctorsToDepartment(@RequestBody Doctor_DepartmentDTO doctorDepartmentDTO){
+        return ResponseEntity.ok(departmentService.addDoctorsToDept(doctorDepartmentDTO));
     }
 }

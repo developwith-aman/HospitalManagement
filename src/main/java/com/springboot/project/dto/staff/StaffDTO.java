@@ -1,4 +1,4 @@
-package com.springboot.project.dto;
+package com.springboot.project.dto.staff;
 
 import com.springboot.project.entity.staff.StaffDepartments;
 import lombok.AllArgsConstructor;

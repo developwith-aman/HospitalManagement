@@ -4,6 +4,7 @@ import com.springboot.project.dto.department.Doctor_DepartmentDTO;
 import com.springboot.project.dto.department.AddNewDeptDTO;
 import com.springboot.project.dto.ApiResponse;
 import com.springboot.project.dto.department.DepartmentDTO;
+import com.springboot.project.dto.doctor.DoctorDTO;
 import com.springboot.project.entity.Department;
 import com.springboot.project.entity.Doctor;
 import com.springboot.project.repository.DepartmentRepository;
@@ -13,8 +14,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.print.Doc;
+import javax.tools.DocumentationTool;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
@@ -84,11 +88,29 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .findById(doctorDepartmentDTO.getDoctorID())
                 .orElseThrow(() -> new RuntimeException("Doctor not found"));
 
-        department.getDoctors().add(doctor);
-        doctor.getDepartments().add(department);
+        // Check if Doctor is already present in department or not
+        if (! department.getDoctors().contains(doctor)) {
+            department.getDoctors().add(doctor);
+            doctor.getDepartments().add(department);
+        }
+        else throw new IllegalArgumentException("Doctor already present in this department, no need to add again...");
 
         department = departmentRepository.save(department);
 
         return new ApiResponse("Doctor : "+ doctor.getDoctorName()+" added to "+ department.getDepartmentName());
+    }
+
+    @Override
+    public List<DoctorDTO> showDepartmentDoctors(Long departmentID) {
+        Department department = departmentRepository
+                .findById(departmentID)
+                .orElseThrow(()-> new IllegalArgumentException("No department found with this ID..."));
+
+        List<Doctor> doctorList = department.getDoctors();
+        List<DoctorDTO> doctorDTOList = new ArrayList<>();
+        for (Doctor doctor : doctorList){
+            doctorDTOList.add(modelMapper.map(doctor, DoctorDTO.class));
+        }
+        return doctorDTOList;
     }
 }

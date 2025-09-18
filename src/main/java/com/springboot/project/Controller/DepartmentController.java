@@ -4,7 +4,9 @@ import com.springboot.project.dto.department.Doctor_DepartmentDTO;
 import com.springboot.project.dto.department.AddNewDeptDTO;
 import com.springboot.project.dto.ApiResponse;
 import com.springboot.project.dto.department.DepartmentDTO;
+import com.springboot.project.dto.doctor.DoctorDTO;
 import com.springboot.project.service.DepartmentService;
+import lombok.extern.java.Log;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,5 +37,12 @@ public class DepartmentController {
     @PostMapping(value = "/add/doctors")
     public ResponseEntity<ApiResponse> addDoctorsToDepartment(@RequestBody Doctor_DepartmentDTO doctorDepartmentDTO){
         return ResponseEntity.ok(departmentService.addDoctorsToDept(doctorDepartmentDTO));
+    }
+
+
+    // To fetch all doctors of a particular department
+    @GetMapping(value = "/show/doctors-of-department/{departmentID}")
+    public List<DoctorDTO> showDoctorsOfDepartment(@PathVariable Long departmentID){
+        return departmentService.showDepartmentDoctors(departmentID);
     }
 }
